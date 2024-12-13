@@ -39,6 +39,23 @@ const Navbar = () => {
       >
         Contact
       </NavLink>
+
+      <NavLink
+        to="/login"
+        className={`${
+          isMenuOpen ? "block" : ""
+        } text-gray-700 hover:text-blue-500`}
+      >
+        Login
+      </NavLink>
+      <NavLink
+        to="/register"
+        className={`${
+          isMenuOpen ? "block" : ""
+        } text-gray-700 hover:text-blue-500`}
+      >
+        Register
+      </NavLink>
     </>
   );
   return (
