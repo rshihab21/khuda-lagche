@@ -1,9 +1,18 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import logo from "../assets/images/khuda-lagche.png";
 import { Link, NavLink } from "react-router-dom";
+import { AuthContext } from "../providers/AuthProviders";
 
 const Navbar = () => {
+  const { user, userSignOut } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const handleSignOut = () => {
+    userSignOut()
+      .then(() => {})
+      .catch((error) => {
+        console.log(error.message);
+      });
+  };
   const menu = (
     <>
       <NavLink
@@ -40,14 +49,21 @@ const Navbar = () => {
         Contact
       </NavLink>
 
-      <NavLink
-        to="/login"
-        className={`${
-          isMenuOpen ? "block" : ""
-        } text-gray-700 hover:text-blue-500`}
-      >
-        Login
-      </NavLink>
+      {user ? (
+        <button onClick={handleSignOut}>
+          <span className="text-yellow-500">{user.displayName}</span> Sign Out
+        </button>
+      ) : (
+        <NavLink
+          to="/login"
+          className={`${
+            isMenuOpen ? "block" : ""
+          } text-gray-700 hover:text-blue-500`}
+        >
+          Login
+        </NavLink>
+      )}
+
       <NavLink
         to="/register"
         className={`${
